@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OJT Progress Tracker</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>OJT Progress Tracker</h1>
+
+    <form id="taskForm">
+
+      <input
+        type="text"
+        id="title"
+        placeholder="Task Title"
+        required
+      >
+
+      <input
+        type="text"
+        id="category"
+        placeholder="Category"
+        required
+      >
+
+      <input
+        type="date"
+        id="date"
+        required
+      >
+
+      <select id="status">
+
+        <option value="Pending">
+          Pending
+        </option>
+
+        <option value="In Progress">
+          In Progress
+        </option>
+
+        <option value="Completed">
+          Completed
+        </option>
+
+      </select>
+
+      <button type="submit">
+        Add Task
+      </button>
+
+    </form>
+
+    <div id="taskList"></div>
+
+    <div class="notes">
+
+  <h2>Daily Notes</h2>
+
+  <textarea
+    id="notes"
+    placeholder="Write errors, learnings and mentor feedback..."
+  ></textarea>
+
+</div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
