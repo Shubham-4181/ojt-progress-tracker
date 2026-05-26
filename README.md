@@ -1,14 +1,17 @@
 # OJT Progress Tracker
 
-# Project Description
+A mini productivity web application for managing daily OJT learning activities, tasks and progress tracking.
 
-OJT Progress Tracker is a mini productivity web application developed for tracking daily learning activities during On Job Training (OJT).
+# Problem Statement
 
-This project helps students manage daily tasks, monitor progress and maintain learning notes.
+Students during On Job Training (OJT) often struggle to manage daily learning tasks, monitor progress and maintain notes for mentor feedback.
+
+This project provides a simple solution to organize daily activities, track task status and maintain learning records in one place.
 
 
-# Features
+# Features Implemented
 
+# Task Management
 - Add daily learning tasks
 - Add task category
 - Add task date
@@ -16,14 +19,61 @@ This project helps students manage daily tasks, monitor progress and maintain le
   - Pending
   - In Progress
   - Completed
-- Display task list
-- Notes section for:
+
+# Task Operations
+- Edit task title
+- Edit task category
+- Mark tasks as completed
+- Delete tasks
+
+# Progress Tracking
+- Display all tasks in task cards
+- Show task summary:
+  - Total Tasks
+  - Completed Tasks
+  - Pending Tasks
+
+# Notes Section
+- Write daily learning notes
+- Store:
   - Errors
   - Learnings
   - Mentor feedback
 
+# Storage
+- Save tasks using Local Storage
+- Data remains available after page refresh
+
+# UI Features
+- Responsive layout
+- Empty state UI
+- Input validation
+- Clean and modern interface
+
 # Technologies Used
 
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
+
+# How to Run the Project Locally
+
+1. Download or clone the repository
+
+2. Open the project folder in VS Code
+
+3. Open `index.html`
+
+4. Run using:
+   - Live Server Extension
+   OR
+   - Open directly in browser
+
+# Folder Structure
+
+ojt-progress-tracker
+│
+├── index.html
+├── style.css
+├── script.js
+└── README.md
