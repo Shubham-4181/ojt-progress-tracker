@@ -4,65 +4,83 @@ const taskForm = document.getElementById("taskForm");
 
 const taskList = document.getElementById("taskList");
 
-let tasks =
-  JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks = [];
 
 notes.value =
   localStorage.getItem("notes") || "";
 
-showTasks();
+loadTasks();
 
-taskForm.addEventListener("submit", function (e) {
+taskForm.addEventListener(
+  "submit",
+  async function (e) {
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const title =
-    document.getElementById("title").value;
+    const title =
+      document.getElementById("title").value;
 
-  const category =
-    document.getElementById("category").value;
+    const category =
+      document.getElementById("category").value;
 
-  const date =
-    document.getElementById("date").value;
+    const date =
+      document.getElementById("date").value;
 
-  const status =
-    document.getElementById("status").value;
+    const status =
+      document.getElementById("status").value;
 
-  if (
-    title.trim() === "" ||
-    category.trim() === "" ||
-    date === ""
-  ) {
+    if (
+      title.trim() === "" ||
+      category.trim() === "" ||
+      date === ""
+    ) {
 
-    alert("Please fill all fields");
+      alert("Please fill all fields");
 
-    return;
+      return;
+
+    }
+
+    const task = {
+      title,
+      category,
+      date,
+      status
+    };
+
+    await fetch(
+      "http://localhost:8080/add-task",
+      {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify(task)
+
+      }
+    );
+
+    loadTasks();
+
+    taskForm.reset();
 
   }
+);
 
-  const task = {
-    title,
-    category,
-    date,
-    status
-  };
+async function loadTasks() {
 
-  tasks.push(task);
+  const res =
+    await fetch(
+      "http://localhost:8080/tasks"
+    );
 
-  saveTasks();
+  tasks = await res.json();
 
   showTasks();
-
-  taskForm.reset();
-
-});
-
-function saveTasks() {
-
-  localStorage.setItem(
-    "tasks",
-    JSON.stringify(tasks)
-  );
 
 }
 
@@ -78,7 +96,8 @@ function showTasks() {
 
       <div class="empty">
 
-        No tasks added yet
+        🚀 Start your OJT journey
+        by adding your first task
 
       </div>
 
@@ -86,11 +105,13 @@ function showTasks() {
 
     showSummary(0);
 
+    showStreak();
+
     return;
 
   }
 
-  tasks.forEach((task, index) => {
+  tasks.forEach((task) => {
 
     if (task.status === "Completed") {
 
@@ -98,7 +119,8 @@ function showTasks() {
 
     }
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     div.classList.add("task");
 
@@ -119,26 +141,30 @@ function showTasks() {
       <p>
         <strong>Status:</strong>
 
-        <span class="${task.status.replace(' ', '')}">
+        <span
+          class="${task.status.replace(' ', '')}"
+        >
           ${task.status}
         </span>
       </p>
 
       <div class="buttons">
 
-        <button onclick="completeTask(${index})">
+        <button
+          onclick="completeTask('${task._id}')"
+        >
           Complete
         </button>
 
         <button
-          onclick="editTask(${index})"
+          onclick="editTask('${task._id}')"
           class="edit"
         >
           Edit
         </button>
 
         <button
-          onclick="deleteTask(${index})"
+          onclick="deleteTask('${task._id}')"
           class="delete"
         >
           Delete
@@ -154,51 +180,87 @@ function showTasks() {
 
   showSummary(completed);
 
-}
-
-function deleteTask(index) {
-
-  tasks.splice(index, 1);
-
-  saveTasks();
-
-  showTasks();
+  showStreak();
 
 }
 
-function completeTask(index) {
+async function deleteTask(id) {
 
-  tasks[index].status = "Completed";
+  await fetch(
 
-  saveTasks();
+    `http://localhost:8080/delete-task/${id}`,
 
-  showTasks();
+    {
+      method: "DELETE"
+    }
+
+  );
+
+  loadTasks();
 
 }
 
-function editTask(index) {
+async function completeTask(id) {
+
+  await fetch(
+
+    `http://localhost:8080/complete-task/${id}`,
+
+    {
+      method: "PUT"
+    }
+
+  );
+
+  loadTasks();
+
+}
+
+async function editTask(id) {
+
+  const task =
+    tasks.find(task => task._id === id);
 
   const newTitle =
     prompt(
       "Edit Task Title",
-      tasks[index].title
+      task.title
     );
 
   const newCategory =
     prompt(
       "Edit Category",
-      tasks[index].category
+      task.category
     );
 
   if (newTitle && newCategory) {
 
-    tasks[index].title = newTitle;
+    await fetch(
 
-    tasks[index].category = newCategory;
+      `http://localhost:8080/edit-task/${id}`,
 
-    saveTasks();
+      {
 
-    showTasks();
+        method: "PUT",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify({
+
+          title: newTitle,
+
+          category: newCategory
+
+        })
+
+      }
+
+    );
+
+    loadTasks();
 
   }
 
@@ -208,7 +270,42 @@ function showSummary(completed) {
 
   const total = tasks.length;
 
-  const pending = total - completed;
+  const pending =
+    total - completed;
+
+  let percentage = 0;
+
+  if(total > 0){
+
+    percentage =
+      Math.round(
+        (completed / total) * 100
+      );
+
+  }
+
+  let message = "";
+
+  if(percentage === 100){
+
+    message =
+      "Excellent! All tasks completed 🚀";
+
+  }
+
+  else if(percentage >= 50){
+
+    message =
+      "Great progress! Keep going 🔥";
+
+  }
+
+  else{
+
+    message =
+      "Keep learning and stay consistent 💪";
+
+  }
 
   let summary =
     document.getElementById("summary");
@@ -225,17 +322,87 @@ function showSummary(completed) {
 
       <p>Pending Tasks: ${pending}</p>
 
+      <p>
+        Completion Rate:
+        ${percentage}%
+      </p>
+
+      <div class="progress">
+
+        <div
+          class="progress-bar"
+          style="width:${percentage}%"
+        >
+        </div>
+
+      </div>
+
+      <h3 class="message">
+        ${message}
+      </h3>
+
     </div>
 
   `;
 
 }
 
-notes.addEventListener("keyup", function () {
+function showStreak() {
 
-  localStorage.setItem(
-    "notes",
-    notes.value
-  );
+  let streak = 0;
 
-});
+  const completedTasks =
+    tasks.filter(task =>
+      task.status === "Completed"
+    );
+
+  const dates =
+    completedTasks.map(task => {
+
+      if(task.completedAt){
+
+        return new Date(
+          task.completedAt
+        ).toDateString();
+
+      }
+
+    });
+
+  const uniqueDates =
+    [...new Set(dates)];
+
+  streak = uniqueDates.length;
+
+  const streakDiv =
+    document.getElementById("streak");
+
+  streakDiv.innerHTML = `
+
+    <div class="summary-box">
+
+      <h2>
+        🔥 Current Streak
+      </h2>
+
+      <p>
+        ${streak} Days
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+notes.addEventListener(
+  "keyup",
+  function () {
+
+    localStorage.setItem(
+      "notes",
+      notes.value
+    );
+
+  }
+);

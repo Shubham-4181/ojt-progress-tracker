@@ -153,3 +153,57 @@ form button:hover{
   color:gray;
   border:2px dashed #ccc;
 }
+
+.progress{
+  width:100%;
+  height:20px;
+  background:#dbeafe;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:15px;
+}
+
+.progress-bar{
+  height:100%;
+  background:#2563eb;
+  border-radius:20px;
+  transition:0.5s;
+}
+
+.message{
+  margin-top:15px;
+  color:#1e3a8a;
+}
+
+.task{
+  transition:0.3s;
+}
+
+.task:hover{
+  transform:translateY(-5px);
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  background:#eff6ff;
+  border-radius:12px;
+  font-size:18px;
+  margin-top:20px;
+}
+
+@media(max-width:600px){
+
+  body{
+    padding:15px;
+  }
+
+  .container{
+    padding:20px;
+  }
+
+  form{
+    grid-template-columns:1fr;
+  }
+
+}
