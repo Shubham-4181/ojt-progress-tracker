@@ -24,7 +24,11 @@ const taskSchema = new mongoose.Schema({
 
   completedAt: {
     type: Date
-  }
+  },
+
+  userId: {
+  type: String
+}
 
 });
 

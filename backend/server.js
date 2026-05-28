@@ -2,6 +2,8 @@ const path = require("path");
 
 const Task = require("./models/Task");
 
+const User = require("./models/User");
+
 const express = require("express");
 
 const mongoose = require("mongoose");
@@ -82,28 +84,19 @@ app.post(
 );
 
 app.get(
-  "/tasks",
+  "/tasks/:userId",
 
   async (req, res) => {
 
-    try {
+    const tasks =
+      await Task.find({
 
-      const tasks =
-        await Task.find();
-
-      res.json(tasks);
-
-    }
-
-    catch (err) {
-
-      res.status(500).json({
-
-        error: err.message
+        userId:
+          req.params.userId
 
       });
 
-    }
+    res.json(tasks);
 
   }
 );
@@ -213,6 +206,107 @@ app.put(
       res.status(500).json({
 
         error: err.message
+
+      });
+
+    }
+
+  }
+);
+
+
+app.post(
+  "/register",
+
+  async (req, res) => {
+
+    const {
+      name,
+      email,
+      password
+    } = req.body;
+
+    const existingUser =
+      await User.findOne({
+
+        email
+
+      });
+
+    if(existingUser){
+
+      return res.json({
+
+        message:
+          "User Already Exists"
+
+      });
+
+    }
+
+    const newUser =
+      new User({
+
+        name,
+        email,
+        password
+
+      });
+
+    await newUser.save();
+
+    res.json({
+
+      message:
+        "Registration Successful"
+
+    });
+
+  }
+);
+
+
+app.post(
+  "/login",
+
+  async (req, res) => {
+
+    const {
+      email,
+      password
+    } = req.body;
+
+    const user =
+      await User.findOne({
+
+        email,
+        password
+
+      });
+
+    if(user){
+
+      res.json({
+
+        message:
+          "Login Success",
+
+        role:
+          user.role,
+
+        userId:
+          user._id
+
+      });
+
+    }
+
+    else{
+
+      res.json({
+
+        message:
+          "Invalid Credentials"
 
       });
 

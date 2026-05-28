@@ -41,12 +41,22 @@ taskForm.addEventListener(
 
     }
 
-    const task = {
-      title,
-      category,
-      date,
-      status
-    };
+  const task = {
+
+  title,
+
+  category,
+
+  date,
+
+  status,
+
+  userId:
+    localStorage.getItem(
+      "userId"
+    )
+
+};
 
     await fetch(
       "http://localhost:8080/add-task",
@@ -75,7 +85,13 @@ async function loadTasks() {
 
   const res =
     await fetch(
-      "http://localhost:8080/tasks"
+
+      `http://localhost:8080/tasks/${
+        localStorage.getItem(
+          "userId"
+        )
+      }`
+
     );
 
   tasks = await res.json();
