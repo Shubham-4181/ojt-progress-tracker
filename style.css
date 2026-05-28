@@ -11,31 +11,35 @@ body{
 }
 
 .container{
-  max-width:900px;
+  max-width:950px;
   margin:auto;
   background:white;
   padding:30px;
   border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 h1{
   text-align:center;
   margin-bottom:30px;
+  color:#1e293b;
 }
 
 form{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:15px;
-  margin-bottom:30px;
+  margin-bottom:25px;
 }
 
 form input,
 form select,
-form button{
+form button,
+#filterCategory{
   padding:12px;
   border-radius:10px;
   border:1px solid #ccc;
+  font-size:15px;
 }
 
 form button{
@@ -43,6 +47,24 @@ form button{
   color:white;
   cursor:pointer;
   border:none;
+  transition:0.3s;
+}
+
+form button:hover{
+  background:#1d4ed8;
+}
+
+.summary-box{
+  background:#eff6ff;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:25px;
+  border-left:5px solid #2563eb;
+}
+
+.summary-box h2{
+  margin-bottom:10px;
+  color:#1e3a8a;
 }
 
 .task{
@@ -51,6 +73,15 @@ form button{
   border-left:5px solid #2563eb;
   margin-bottom:20px;
   border-radius:10px;
+}
+
+.task h3{
+  margin-bottom:10px;
+  color:#111827;
+}
+
+.task p{
+  margin-bottom:8px;
 }
 
 .Pending{
@@ -68,6 +99,32 @@ form button{
   font-weight:bold;
 }
 
+.buttons{
+  margin-top:15px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.buttons button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  color:white;
+}
+
+.buttons button:first-child{
+  background:green;
+}
+
+.edit{
+  background:#f59e0b;
+}
+
+.delete{
+  background:red;
+}
 
 .notes{
   margin-top:30px;
@@ -85,4 +142,68 @@ form button{
   border-radius:10px;
   resize:none;
   font-size:16px;
+}
+
+.empty{
+  background:white;
+  padding:30px;
+  text-align:center;
+  border-radius:10px;
+  font-size:20px;
+  color:gray;
+  border:2px dashed #ccc;
+}
+
+.progress{
+  width:100%;
+  height:20px;
+  background:#dbeafe;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:15px;
+}
+
+.progress-bar{
+  height:100%;
+  background:#2563eb;
+  border-radius:20px;
+  transition:0.5s;
+}
+
+.message{
+  margin-top:15px;
+  color:#1e3a8a;
+}
+
+.task{
+  transition:0.3s;
+}
+
+.task:hover{
+  transform:translateY(-5px);
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  background:#eff6ff;
+  border-radius:12px;
+  font-size:18px;
+  margin-top:20px;
+}
+
+@media(max-width:600px){
+
+  body{
+    padding:15px;
+  }
+
+  .container{
+    padding:20px;
+  }
+
+  form{
+    grid-template-columns:1fr;
+  }
+
 }
