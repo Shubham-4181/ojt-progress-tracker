@@ -11,12 +11,21 @@ body{
 }
 
 .container{
-  max-width:950px;
-  margin:auto;
+
+  max-width:1100px;
+
+  margin:40px auto;
+
   background:white;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+  padding:40px;
+
+  border-radius:20px;
+
+  box-shadow:
+  0 5px 20px
+  rgba(0,0,0,0.1);
+
 }
 
 h1{
@@ -205,5 +214,117 @@ form button:hover{
   form{
     grid-template-columns:1fr;
   }
+
+}
+
+#studentName{
+
+  text-align:center;
+
+  color:#2563eb;
+
+  font-size:32px;
+
+  font-weight:bold;
+
+  margin-bottom:20px;
+
+}
+
+
+.top-buttons{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  gap:10px;
+
+  margin-bottom:20px;
+
+}
+
+#backToAdmin{
+
+  background:#2563eb;
+
+  color:white;
+
+  border:none;
+
+  padding:10px 16px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  font-size:14px;
+
+}
+
+.task button{
+
+  background:#2563eb;
+
+  color:white;
+
+  border:none;
+
+  padding:10px 15px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+}
+
+.link-text{
+
+  margin-top:20px;
+
+  text-align:center;
+
+  width:100%;
+
+}
+
+form{
+
+  display:flex;
+
+  gap:15px;
+
+  justify-content:center;
+
+  flex-wrap:wrap;
+
+}
+
+.top-buttons{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-bottom:20px;
+
+}
+
+#adminLogout,
+#logoutBtn{ 
+
+  background:#dc2626;
+
+  color:white;
+
+  border:none;
+
+  padding:10px 16px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  font-size:14px;
 
 }

@@ -4,6 +4,8 @@ const taskForm = document.getElementById("taskForm");
 
 const taskList = document.getElementById("taskList");
 
+loadStudentName();
+
 let tasks = [];
 
 notes.value =
@@ -41,7 +43,7 @@ taskForm.addEventListener(
 
     }
 
-  const task = {
+const task = {
 
   title,
 
@@ -52,6 +54,19 @@ taskForm.addEventListener(
   status,
 
   userId:
+
+    localStorage.getItem(
+      "adminViewMode"
+    )
+
+    ?
+
+    localStorage.getItem(
+      "viewStudentId"
+    )
+
+    :
+
     localStorage.getItem(
       "userId"
     )
@@ -81,16 +96,63 @@ taskForm.addEventListener(
   }
 );
 
+
+async function loadStudentName(){
+
+  if(
+    localStorage.getItem(
+      "adminViewMode"
+    ) !== "true"
+  ){
+    return;
+  }
+
+  const id =
+    localStorage.getItem(
+      "viewStudentId"
+    );
+
+  const res =
+    await fetch(
+      `http://localhost:8080/student/${id}`
+    );
+
+  const student =
+    await res.json();
+
+  document.getElementById(
+    "studentName"
+  ).innerText =
+
+  `Viewing Student: ${student.name}`;
+
+}
+
+
 async function loadTasks() {
+
+  const userId =
+
+    localStorage.getItem(
+      "adminViewMode"
+    ) === "true"
+
+    ?
+
+    localStorage.getItem(
+      "viewStudentId"
+    )
+
+    :
+
+    localStorage.getItem(
+      "userId"
+    );
 
   const res =
     await fetch(
 
-      `http://localhost:8080/tasks/${
-        localStorage.getItem(
-          "userId"
-        )
-      }`
+      `http://localhost:8080/tasks/${userId}`
 
     );
 
@@ -422,3 +484,80 @@ notes.addEventListener(
 
   }
 );
+
+const backBtn =
+  document.getElementById(
+    "backToAdmin"
+  );
+
+if(backBtn){
+
+  if(
+    localStorage.getItem(
+      "adminViewMode"
+    ) === "true"
+  ){
+
+    backBtn.style.display =
+      "block";
+
+  }
+
+  else{
+
+    backBtn.style.display =
+      "none";
+
+  }
+
+  backBtn.addEventListener(
+    "click",
+    function(){
+
+      localStorage.removeItem(
+        "adminViewMode"
+      );
+
+      localStorage.removeItem(
+        "viewStudentId"
+      );
+
+      window.location.href =
+        "admin.html";
+
+    }
+  );
+
+}
+
+
+const logoutBtn =
+  document.getElementById(
+    "logoutBtn"
+  );
+
+if(logoutBtn){
+
+  logoutBtn.addEventListener(
+    "click",
+    function(){
+
+      localStorage.removeItem(
+        "userId"
+      );
+
+      localStorage.removeItem(
+        "adminViewMode"
+      );
+
+      localStorage.removeItem(
+        "viewStudentId"
+      );
+
+      window.location.href =
+        "login.html";
+
+    }
+  );
+
+}

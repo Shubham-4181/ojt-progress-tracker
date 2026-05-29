@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>
+    Student Details
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>
+      Student Progress
+    </h1>
+
+    <div id="taskList"></div>
+
+  </div>
+
+  <script>
+
+    async function loadTasks(){
+
+      const userId =
+        localStorage.getItem(
+          "viewStudentId"
+        );
+
+      const res =
+        await fetch(
+
+          `http://localhost:8080/tasks/${userId}`
+
+        );
+
+      const tasks =
+        await res.json();
+
+      const taskList =
+        document.getElementById(
+          "taskList"
+        );
+
+      tasks.forEach(task => {
+
+        taskList.innerHTML += `
+
+          <div class="task">
+
+            <h3>
+              ${task.title}
+            </h3>
+
+            <p>
+              ${task.category}
+            </p>
+
+            <p>
+              ${task.status}
+            </p>
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+    loadTasks();
+
+  </script>
+
+</body>
+
+</html>

@@ -1,79 +1,126 @@
 # OJT Progress Tracker
 
-A mini productivity web application for managing daily OJT learning activities, tasks and progress tracking.
+A web-based productivity and progress tracking application designed to help students manage their daily OJT (On Job Training) activities, monitor learning progress, and maintain mentor feedback records.
 
 # Problem Statement
 
-Students during On Job Training (OJT) often struggle to manage daily learning tasks, monitor progress and maintain notes for mentor feedback.
+Students undergoing OJT often face difficulties in organizing daily tasks, tracking completed work, maintaining consistency, and sharing progress with mentors.
 
-This project provides a simple solution to organize daily activities, track task status and maintain learning records in one place.
+This project provides a centralized platform where students can manage tasks, track progress, maintain notes, and allow administrators to monitor student activities.
 
+# Target Users
+
+- Students undergoing OJT
+- Mentors and Trainers
+- Administrators
 
 # Features Implemented
 
-# Task Management
-- Add daily learning tasks
-- Add task category
-- Add task date
-- Select task status
+## Authentication System
+
+- Student Registration
+- Student Login
+- Admin Login
+- Duplicate User Validation
+- Logout Functionality
+- Role-Based Access Control
+
+## Student Dashboard
+
+### Task Management
+
+- Add New Tasks
+- Edit Existing Tasks
+- Delete Tasks
+- Mark Tasks as Completed
+
+### Task Details
+
+- Task Title
+- Category
+- Date
+- Status
   - Pending
-  - In Progress
   - Completed
 
-# Task Operations
-- Edit task title
-- Edit task category
-- Mark tasks as completed
-- Delete tasks
+## Progress Tracking
 
-# Progress Tracking
-- Display all tasks in task cards
-- Show task summary:
-  - Total Tasks
-  - Completed Tasks
-  - Pending Tasks
+- Total Tasks Count
+- Completed Tasks Count
+- Pending Tasks Count
+- Completion Percentage
+- Progress Bar
 
-# Notes Section
-- Write daily learning notes
-- Store:
-  - Errors
-  - Learnings
-  - Mentor feedback
+## Streak Tracking
 
-# Storage
-- Save tasks using Local Storage
-- Data remains available after page refresh
+- Daily Learning Streak Counter
+- Tracks completed task activity
 
-# UI Features
-- Responsive layout
-- Empty state UI
-- Input validation
-- Clean and modern interface
+## Daily Notes
+
+Students can maintain:
+
+- Daily Learnings
+- Errors Faced
+- Mentor Feedback
+- Important Notes
+
+## Admin Dashboard
+
+### Student Management
+
+- View All Registered Students
+- View Individual Student Dashboard
+- Monitor Student Progress
+- Track Student Tasks
 
 # Technologies Used
+
+## Frontend
 
 - HTML5
 - CSS3
 - JavaScript
 
-# How to Run the Project Locally
+## Backend
 
-1. Download or clone the repository
+- Node.js
+- Express.js
 
-2. Open the project folder in VS Code
+## Database
 
-3. Open `index.html`
-
-4. Run using:
-   - Live Server Extension
-   OR
-   - Open directly in browser
+- MongoDB
+- Mongoose
 
 # Folder Structure
 
 ojt-progress-tracker
 │
+├── backend
+│   ├── models
+│   │   ├── User.js
+│   │   └── Task.js
+│   │
+│   ├── server.js
+│   ├── package.json
+│   └── package-lock.json
+│
 ├── index.html
+├── login.html
+├── register.html
+├── admin.html
 ├── style.css
 ├── script.js
+│
 └── README.md
+
+
+# Future Improvements
+
+- Task Priority System
+- Search & Filter Tasks
+- Admin Analytics Dashboard
+- Profile Management
+- Session-Based Authentication
+- Email Notifications
+- Report Generation

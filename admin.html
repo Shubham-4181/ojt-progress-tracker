@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>
+    Admin Dashboard
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>
+      Admin Dashboard
+    </h1>
+
+    <div class="top-buttons">
+
+  <button id="adminLogout">
+
+    Logout
+
+  </button>
+
+</div>
+
+    <div id="studentList"></div>
+
+  </div>
+
+  <script>
+
+    async function loadStudents(){
+
+      const res =
+        await fetch(
+          "http://localhost:8080/students"
+        );
+
+      const students =
+        await res.json();
+
+      const studentList =
+        document.getElementById(
+          "studentList"
+        );
+
+      students.forEach(student => {
+
+        studentList.innerHTML += `
+
+          <div class="task">
+
+            <h3>
+              ${student.name}
+            </h3>
+
+            <p>
+              ${student.email}
+            </p>
+
+            <button
+              onclick="
+              viewStudent(
+                '${student._id}'
+              )
+              "
+            >
+
+              View
+
+            </button>
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+function viewStudent(id){
+
+  console.log(id);
+
+  localStorage.setItem(
+    "viewStudentId",
+    id
+  );
+
+  localStorage.setItem(
+    "adminViewMode",
+    "true"
+  );
+
+  window.location.href =
+    "index.html";
+
+}
+
+    loadStudents();
+
+
+    const adminLogout =
+  document.getElementById(
+    "adminLogout"
+  );
+
+adminLogout.addEventListener(
+  "click",
+  function(){
+
+    localStorage.removeItem(
+      "userId"
+    );
+
+    localStorage.removeItem(
+      "adminViewMode"
+    );
+
+    localStorage.removeItem(
+      "viewStudentId"
+    );
+
+    window.location.href =
+      "login.html";
+
+  }
+);
+  </script>
+
+</body>
+
+</html>

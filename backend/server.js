@@ -315,6 +315,40 @@ app.post(
   }
 );
 
+app.get(
+  "/students",
+
+  async (req, res) => {
+
+    const students =
+      await User.find({
+
+        role: "student"
+
+      });
+
+    res.json(students);
+
+  }
+);
+
+
+app.get(
+  "/student/:id",
+
+  async (req, res) => {
+
+    const student =
+      await User.findById(
+        req.params.id
+      );
+
+    res.json(student);
+
+  }
+);
+
+
 app.listen(8080, () => {
 
   console.log(

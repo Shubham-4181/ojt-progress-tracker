@@ -48,6 +48,18 @@
 
       </button>
 
+      <p class="link-text">
+
+  New Student?
+
+  <a href="register.html">
+
+    Register Here
+
+  </a>
+
+</p>
+
     </form>
 
   </div>
@@ -107,33 +119,37 @@
         const data =
           await res.json();
 
-        alert(data.message);
 
-        if(data.message === "Login Success"){
+if(data.message === "Login Success"){
 
-          localStorage.setItem(
+  localStorage.removeItem(
+    "adminViewMode"
+  );
 
-            "userId",
+  localStorage.removeItem(
+    "viewStudentId"
+  );
 
-            data.userId
+  localStorage.setItem(
+    "userId",
+    data.userId
+  );
 
-          );
+  if(data.role === "admin"){
 
-          if(data.role === "admin"){
+    window.location.href =
+      "admin.html";
 
-            window.location.href =
-              "admin.html";
+  }
 
-          }
+  else{
 
-          else{
+    window.location.href =
+      "index.html";
 
-            window.location.href =
-              "index.html";
+  }
 
-          }
-
-        }
+}
 
       }
 
